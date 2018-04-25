@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.MenuDao">
+	<select id="selectMenu" parameterType="Menu" resultType="Menu">
+	select t.* from bo_org_menu t where 1=1
+	<if test="menuName!= null and menuName != ''">
+	and t.menuName=#{menuName}
+	</if>
+	<if test="menuId!= null and menuId != ''">
+	and t.menuId=#{menuId}
+	</if>
+	<if test="flag!= null and flag != ''">
+	and t.flag=#{flag}
+	</if>
+	</select>
+	<select id="showMenuInfo" parameterType="int" resultType="Menu">
+	select t.* from bo_org_menu t where t.menuId=#{menuId}	
+	</select>
+	<insert id="addMenu" parameterType="Menu" keyProperty="menuId">
+	insert into bo_org_menu values(menu_seq.nextval,#{menuName},#{parentId},#{creater,jdbcType=VARCHAR},#{createTime,jdbcType=DATE},#{modifier,jdbcType=VARCHAR},#{modifyTime,jdbcType=DATE},#{flag},#{url})
+	</insert>
+	<update id="modifyMenu" parameterType="Menu">
+	 update bo_org_menu t set t.menuName=#{menuName},t.url=#{url},t.flag=#{flag},t.modifier=#{modifier},t.modifyTime=#{modifyTime} where t.menuId=#{menuId}
+	</update>
+	<delete id="delMenu" parameterType="int">
+	 delete from bo_org_menu t where t.menuId=#{menuId}
+	</delete>
+	<delete id="delMenuNode" parameterType="int">
+	 delete from bo_org_roledict t where t.menuId=#{menuId}
+	</delete>
+</mapper>

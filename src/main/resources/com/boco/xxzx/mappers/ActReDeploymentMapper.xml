@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.ActReDeploymentDao"> 
+
+    <resultMap type="ActReDeployment" id="ActReDeploymentMap">
+    <id  property="id" column="id_"/>
+    <result property="name" column="name_"/>
+    <result property="category" column="category_"/>
+    <result property="tenantId" column="tenant_id_"/>
+    <result property="deployTime" column="deploy_time_"/>
+    </resultMap>
+
+	     <!--已部署的流程-->
+	 <select id="listActReDeployment"    resultMap="ActReDeploymentMap">
+	     select t.id_,
+	     t.name_,
+	     t.category_,
+	     t.tenant_id_,
+	     t.deploy_time_ 
+	     from
+	     act_re_deployment t
+	 </select> 
+		 
+</mapper> 

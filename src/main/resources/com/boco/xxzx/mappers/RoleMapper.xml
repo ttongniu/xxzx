@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.RoleDao">
+	<resultMap type="Dictionary" id="dictionaryMap">
+	<id property="id" column="id"/>
+	<result property="code" column="code"/>
+	<result property="key" column="key"/>
+	<result property="value" column="value"/>
+	<result property="description" column="description"/>
+    <result property="createTime" column="create_Time"/>
+	<result property="updateTime" column="update_Time"/>
+	<association property="lastModifyUser" javaType="User">
+       <id property="id" column="last_modify_user_id"/>
+       <result property="employeeId" column="employeeId"/>
+       <result property="employeeName" column="employeeName"/>
+       <result property="password" column="password"/>
+       <result property="mobile" column="mobile"/>
+       <result property="email" column="email"/>
+     </association>
+	</resultMap>	
+	
+	<resultMap type="roleDict" id="roleDictMap">
+	<result property="roleId" column="roleId"/>
+	<result property="menuId" column="menuId"/>
+	<result property="dataId" column="dataId"/>
+	 <association property="role" javaType="com.boco.xxzx.model.Dictionary">
+    <id property="roleId" column="id"/>
+    <result property="code" column="code"/>
+    <result property="value" column="value"/>
+    <result property="description" column="description"/>
+    </association>
+     <association property="menu" javaType="com.boco.xxzx.model.Menu">
+    <id property="menuId" column="menuId"/>
+    <result property="menuName" column="menuName"/>
+    </association>
+     <association property="data" javaType="com.boco.xxzx.model.Dictionary">
+    <id property="dataId" column="id"/>
+    <result property="code" column="code"/>
+    <result property="key" column="key"/>
+    <result property="value" column="value"/>
+    <result property="description" column="description"/>
+    </association>
+	</resultMap>
+		
+
+	<select id="selectRole" parameterType="Dictionary" resultMap="dictionaryMap">
+	select t.* from bo_data_dict t where t.code='role'
+	<if test="id!= null and id != ''">
+	and t.id=#{id}
+	</if>
+	<if test="value!= null and value != ''">
+	and t.value like concat(concat('%', #{value}), '%')
+	</if>
+	</select>
+	
+	<insert id="authorizeRole" parameterType="RoleDict">
+	insert into bo_org_roleDict values(#{roleId},#{dataId},#{menuId},#{creater,jdbcType=VARCHAR},#{createTime,jdbcType=DATE},#{modifier,jdbcType=VARCHAR},#{modifyTime,jdbcType=DATE})
+	</insert>
+	<select id="selectAuthorize" parameterType="int" resultMap="roleDictMap">
+	select t1.value,t2.menuName,t3.description,t4.* 
+	from bo_data_dict t1,bo_org_menu t2,bo_data_dict t3,bo_org_roledict t4
+	where t1.id=t4.roleId and t2.menuId=t4.menuId and t3.id=t4.dataId and t4.roleId=#{roleId} 
+	</select>
+	<delete id="deleteAuthorize" parameterType="int">
+	 delete from bo_org_roledict t where t.roleId=#{roleId} 
+	</delete>
+	<delete id="deleteAuthorizeRole" parameterType="RoleDict">
+	 delete from bo_org_roledict t where t.roleId=#{roleId} and t.menuId=#{menuId} and t.dataid=#{dataId}
+	</delete>
+	<delete id="delRoleNode" parameterType="int">
+	 delete from bo_org_userrole t where t.roleId=#{roleId}
+	</delete>
+	<select id="selectUnauthorized" parameterType="String" resultMap="dictionaryMap">
+     select t1.* from bo_data_dict t1 where t1.id not in(select t.roleid from bo_org_userrole t where t.employeeId=#{employeeId}) and t1.code='role'
+	</select>
+</mapper>

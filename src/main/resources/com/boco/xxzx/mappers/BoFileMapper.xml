@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.BoFileDao">
+    <resultMap type="BoFile" id="BoFileMap">
+    <id  property="id" column="id"/>
+    <result property="code" column="code"/>
+    <result property="filePath" column="file_path"/>
+    <result property="fileName" column="file_name"/>
+    <result property="createTime" column="create_time"/>
+    </resultMap>
+    
+    <select id="listFilesByCode"  parameterType="String" resultMap="BoFileMap">
+      select t.* from bo_file t where t.code=#{code}
+    </select>
+	
+	<insert id="saveFile" parameterType="BoFile">
+	   insert into 
+	   bo_file t 
+	   (t.id,t.code,t.file_path,t.file_name,t.create_man) 
+	   values
+	   (file_seq.nextval,#{code},#{filePath},#{fileName},#{createMan.id})
+	</insert>
+
+	
+</mapper> 

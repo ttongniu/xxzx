@@ -1,0 +1,228 @@
+<style type="text/css">
+A {font-size: 10pt; color: #000000}
+td {  font-size: 10pt; color: #000000}
+.font1 {
+	font-size: 11pt;
+	color: #000000;
+	font-weight: bold;
+	font-family: "宋体";
+
+
+
+}
+ul 
+{
+	list-style-image:url("../images/approvalopinion.png");
+}
+INPUT.BtnActionxmgl {
+	BORDER-RIGHT: 1px solid #64A600; PADDING-RIGHT: 4px; BORDER-TOP: 1px solid #99CC00; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND: #CBECA2; PADDING-BOTTOM: 2px; MARGIN: 2px; BEHAVIOR: url("../css/changeButton.htc"); WORD-SPACING: 0px; VERTICAL-ALIGN: middle; BORDER-LEFT: 1px solid #99CC00; CURSOR: hand; COLOR: #000000; PADDING-TOP: 2px; BORDER-BOTTOM: 1px solid #64A600; LETTER-SPACING: 0px; HEIGHT: 20px
+}
+INPUT.BtnActionzhfx {
+	BORDER-RIGHT: 1px solid #C67700; PADDING-RIGHT: 4px; BORDER-TOP: 1px solid #FF9900; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND: #FFDFB0; PADDING-BOTTOM: 2px; MARGIN: 2px; BEHAVIOR: url("../css/changeButton.htc"); WORD-SPACING: 0px; VERTICAL-ALIGN: middle; BORDER-LEFT: 1px solid #FF9900; CURSOR: hand; COLOR: #000000; PADDING-TOP: 2px; BORDER-BOTTOM: 1px solid #C67700; LETTER-SPACING: 0px; HEIGHT: 20px
+}
+INPUT.BtnActionzhfx1 {
+	BORDER-RIGHT: 1px solid #006CB5; PADDING-RIGHT: 4px; BORDER-TOP: 1px solid #0DA2F2; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND: #B7E7F9; PADDING-BOTTOM: 2px; MARGIN: 2px; BEHAVIOR: url("../css/changeButton.htc"); WORD-SPACING: 0px; VERTICAL-ALIGN: middle; BORDER-LEFT: 1px solid #0DA2F2; CURSOR: hand; COLOR: #000000; PADDING-TOP: 2px; BORDER-BOTTOM: 1px solid #006CB5; LETTER-SPACING: 0px; HEIGHT: 20px
+}
+INPUT.BtnActionchwz {
+	BORDER-RIGHT: 1px solid #7A7AC9; PADDING-RIGHT: 4px; BORDER-TOP: 1px solid #7A7AC9; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND: #DFDFF2; PADDING-BOTTOM: 2px; MARGIN: 2px; BEHAVIOR: url("../css/changeButton.htc"); WORD-SPACING: 0px; VERTICAL-ALIGN: middle; BORDER-LEFT: 1px solid #7A7AC9; CURSOR: hand; COLOR: #000000; PADDING-TOP: 2px; BORDER-BOTTOM: 1px solid #7A7AC9; LETTER-SPACING: 0px; HEIGHT: 20px
+}
+.font2 {  FONT-SIZE: 10pt; LINE-HEIGHT: normal; color: #FFFFFF;}
+.font-bottom {  FONT-SIZE: 9pt; LINE-HEIGHT: normal; color: #000000;}
+.font-time {  FONT-SIZE: 9pt; LINE-HEIGHT: normal; color: #ffffff;}
+.b1 {
+	FONT-SIZE: 10.5pt;
+	LINE-HEIGHT: normal;
+	color: #000000;
+	font-family: "宋体";
+	font-weight: bold;
+
+}
+.style1 { text-decoration:  blink}
+.textfield {
+	BACKGROUND-COLOR: #ffffff;
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;	
+	border: 1px solid #EAEAEA;
+                COLOR: #3366cc
+}
+.textfieldAA {
+	BACKGROUND-COLOR: #ffffff;
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;	
+	border: 1px solid #EAEAEA;
+                COLOR: #3366cc
+}
+.textfield-ffffff{
+	BACKGROUND-COLOR: #ffffff;
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;
+	border: 1px solid #EAEAEA;
+		COLOR: #3366cc
+}
+.textfield-D6D6E2{
+	BACKGROUND-COLOR: #ffffff;
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;
+	border: 1px solid #3495E4;
+		COLOR: #003366
+}
+.textfield1 {
+	BACKGROUND-COLOR: #FFFFFF;
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;
+	border: 1px solid #cccccc;
+	color: #000000;
+
+}
+.textfieldsy{
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;
+	border: 1px none #000000;
+	color: #000000;
+
+}
+
+.botton {BACKGROUND-COLOR: #85BFEF; BORDER-BOTTOM: #000000 1px ridge; BORDER-LEFT: #ffffff 1px ridge; BORDER-RIGHT: #333333 1px ridge; BORDER-TOP: #ffffff 1px ridge; COLOR: #000000; FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; HEIGHT: 20px; text-decoration: underline; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none}
+.bottonsy {BACKGROUND-COLOR: #cc6600; BORDER-BOTTOM: #000000 1px ridge; BORDER-LEFT: #ffffff 1px ridge; BORDER-RIGHT: #333333 1px ridge; BORDER-TOP: #ffffff 1px ridge; COLOR: #ffffff; FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; HEIGHT: 20px; text-decoration: underline; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none}
+
+.botton1 {BACKGROUND-COLOR: #FEF3CF; BORDER-BOTTOM: #000000 1px ridge; BORDER-LEFT: #ffffff 1px ridge; BORDER-RIGHT: #333333 1px ridge; BORDER-TOP: #ffffff 1px ridge; COLOR: #2663A6; FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; HEIGHT: 20px; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none}
+.botton2 {BACKGROUND-COLOR: #999999; BORDER-BOTTOM: #000000 1px ridge; BORDER-LEFT: #ffffff 1px ridge; BORDER-RIGHT: #333333 1px ridge; BORDER-TOP: #ffffff 1px ridge; COLOR: #000000; FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; HEIGHT: 20px; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none}
+A.g:link {
+	COLOR: #3366cc;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none;
+	font-weight: normal;
+
+}
+A.g:visited {
+	COLOR: #3366cc;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none;
+	font-weight: normal;
+
+}
+A.g:hover {
+	COLOR: #ff3300;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: underline;
+	font-weight: normal;
+
+
+}
+A.title:link {
+	COLOR: #D5EBFD;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none;
+	font-weight: normal;
+}
+A.title:visited {
+	COLOR: #DBEAF7;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none;
+	font-weight: normal;
+}
+A.title:hover {
+	COLOR: #66FFFF;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: underline;
+	font-weight: bold;
+}
+
+a:visited {
+	font-size: 10pt;
+	color: #3366cc;
+	text-decoration: none;
+}
+a:link {
+	font-size: 10pt;
+	color: #3366cc;
+	text-decoration: underline;
+}
+a:hover {
+	font-size: 10pt;
+	font-weight: none;
+	color: #ff3300;
+	TEXT-DECORATION: underline;
+}
+
+/*财务报表*/
+.data_table{                                               /*报表表格*/
+	padding:0;
+	margin:0px;
+	border-top:1px solid #003366;
+	border-left:1px solid #003366;
+}
+
+.data_table_title{                                           /*报表表格横向表头*/
+	background-color:#BCCEF7;
+	white-space:nowrap;
+	color:#003399;
+	padding:3px;
+	border-bottom:1px solid #003366;
+	border-right:1px solid #003366;
+	font-size:10pt;
+        text-align:center;
+        font-weight: 800; 
+}
+.data_table_title1{                                           /*报表表格横向表头*/
+	background-color:#BCCEF7;
+	color:#003399;
+	padding:3px;
+	border-bottom:1px solid #003366;
+	border-right:1px solid #003366;
+	font-size:10pt;
+        text-align:center;
+        font-weight: 800; 
+}
+.data_table_title_right{                                           /*报表表格横向表头*/
+	background-color:#BCCEF7;
+	white-space:nowrap;
+	color:#003399;
+	padding:3px;
+	border-bottom:1px solid #003366;
+	border-right:1px solid #003366;
+	font-size:10pt;
+        text-align:right;
+}
+
+.data_table_content{                                         /*报表表格内容*/
+	color:#003399;
+	border-bottom:1px solid #003366;
+	border-right:1px solid #003366;
+	font-size:10pt;
+	padding:3px;
+	text-align:center;
+}
+
+.data_table_content_right{                                         /*报表表格内容*/
+	color:#003399;
+	border-bottom:1px solid #003366;
+	border-right:1px solid #003366;
+	font-size:10pt;
+	padding:3px;
+	text-align:right;
+}
+
+.data_table_content_left{                                         /*报表表格内容*/
+	color:#003399;
+	border-bottom:1px solid #003366;
+	border-right:1px solid #003366;
+	font-size:10pt;
+	padding:3px;
+	text-align:left;
+}
+fieldset
+{
+  border: 1px solid #61B5CF;
+  margin-top: 16px;
+  padding: 8px;
+  width: 80%;
+ 
+}
+legend
+{
+  font: bold 12px Arial, Helvetica, sans-serif;
+  color: #00008B;
+  background-color: #FFFFFF;
+}
+</style>

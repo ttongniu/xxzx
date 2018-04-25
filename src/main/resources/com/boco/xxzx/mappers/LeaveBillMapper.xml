@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.LeaveBillDao">
+    <resultMap type="LeaveBill" id="leaveBillMap">
+    <id  property="id" column="id"/>
+    <result property="days" column="days"/>
+    <result property="content" column="content"/>
+    <result property="leaveDate" column="leaveDate"/>
+    <result property="remark" column="remark"/>
+    <result property="state" column="state"/>
+    <result property="createTime" column="createTime"/>
+    <result property="updateTime" column="updateTime"/>
+     <association property="user" javaType="User">
+       <id property="id" column="user_id"/>
+       <result property="employeeId" column="employeeId"/>
+       <result property="employeeName" column="employeeName"/>
+       <result property="password" column="password"/>
+       <result property="mobile" column="mobile"/>
+       <result property="email" column="email"/>
+     </association>  
+    </resultMap>
+    
+    
+    <select id="listLeaveBillByParameter" parameterType="Map"   resultMap="leaveBillMap">
+       select * from bo_leavebill t1, bo_org_user t2
+        where t1.user_id = t2.id 
+           and t1.user_id=#{userId}
+         <if test="id != '' and id != null">  
+            and t1.id like concat(concat('%', #{id}), '%')
+        </if>
+        
+         <if test="state != '' and state != null">  
+          <choose>
+           <when test="state=='all'">
+           and t1.state in ('0','1','2') 
+           </when>
+           <otherwise>
+           and t1.state=#{state}  
+           </otherwise>
+        </choose>
+        </if> 
+        
+        <if test="beginDate != null and beginDate != ''">
+        AND TO_CHAR(t1.createTime,'yyyy-mm-dd')  <![CDATA[>=]]> #{beginDate}
+        </if>
+         
+         <if test="endDate != null and endDate != ''">
+         AND TO_CHAR(t1.createTime,'yyyy-mm-dd')<![CDATA[<=]]> #{endDate}
+         </if>
+        order by t1.state ,t1.createTime
+    </select>
+    
+    <select id="listLeaveBill"  parameterType="Long"  resultMap="leaveBillMap">
+       select * from bo_leavebill t1, bo_org_user t2
+        where 
+        t1.user_id = t2.id 
+        and t1.user_id=#{userId}
+        and t1.state='1'
+        order by t1.id
+    </select>
+    
+    <select id="getLeaveBillById"  parameterType="Long" resultMap="leaveBillMap">
+       select * from bo_leavebill t1, bo_org_user t2 where t1.user_id = t2.id and t1.id=#{id}
+    </select>
+	
+	<insert id="insertLeaveBill" parameterType="LeaveBill">
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT bo_leavebill_seq.CURRVAL FROM DUAL
+    </selectKey>
+	   insert into 
+	   bo_leavebill t 
+	   (t.id,t.days,t.content,t.remark,t.state,t.user_id) 
+	   values
+	   (bo_leavebill_seq.nextval,#{days},#{content},#{remark},#{state},#{user.id})
+	</insert>
+	
+	<update id="updateLeaveBillState"  parameterType="Map">
+	 update  
+	 bo_leavebill t 	     
+      <if test="state!=null">  
+      <set>
+       t.state = #{state} 
+      </set>
+      </if>   
+	   where t.id=#{id}
+	</update>
+	
+	<update id="updateLeaveBill"  parameterType="LeaveBill">
+	 update  
+	 bo_leavebill t 
+	  <trim prefix="set" suffixOverrides=",">    
+       <if test="days!=null">  
+        t.days= #{days},  
+       </if>  
+  
+      <if test="content!=null">  
+        t.content = #{content},  
+      </if>
+        
+      <if test="remark!=null">  
+        t.remark = #{remark},  
+      </if>  
+     </trim>  
+	   where t.id=#{id}
+	</update>
+	
+	<delete id="deleteLeaveBillById" parameterType="Long">
+	   delete from  bo_leavebill t where t.id=#{id}
+	</delete>
+
+	<!-- <select id="addUser" parameterType="User">
+	    insert into bo_org_user values(#{id},#{employeeId},#{employeeName},#{deptId},#{password},#{mobile},#{email})
+	</select>
+	<select id="delUser" parameterType="int">
+	    delete * from bo_org_user t where t.id=#{id}
+	</select>
+	<select id="modifyUser" parameterType="User">
+	    update bo_org_user t set t.id=#{id},t.employeeId=#{employeeId},t.employeeName=#{employeeName},t.deptId=#{deptId},
+	    t.password=#{password},t.mobile=#{mobile},t.email=#{email} 
+	</select>
+	<select id="selectUser" parameterType="User" resultMap="userMap">
+	   select t.*,t2.depname from bo_org_user t,bo_org_departmant t2 where t.depnum=t2.depnum
+	    <if test="employeeId!= null and employeeId != ''">
+	    and t.employeeId=#{employeeId}
+	    </if>
+	    <if test="employeeName!= null and employeeName != ''">
+	    and t.employeeName=#{employeeName}
+	    </if>
+	</select> -->
+</mapper> 

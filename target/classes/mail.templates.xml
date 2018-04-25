@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mail-templates>
+	<mail-template name='CountersignAction'>
+		<subject><![CDATA[待办事宜提醒:您在  ${sysname} 中有新的待办事宜	]]></subject>
+		<text>
+			<![CDATA[您好,您在  ${sysname} 中有新的待办事宜,审批单：${dformcode} 等待您处理。请您先登录VPN，从VPN首页登录系统,谢谢!]]>
+		</text>
+	</mail-template>
+	
+	<mail-template name='PigeonholeAction'>
+		<subject><![CDATA[通知:您在  ${sysname} 中提交的流程: ${dformcode} 已通过审批归档]]></subject>
+		<text>
+			<![CDATA[您好,您在 ${sysname}  ${wfname} 流程，提交的审批单：${dformcode} 已通过审批归档。请您先登录VPN，从VPN首页登录系统查看详细,谢谢!]]>
+		</text>
+	</mail-template>	
+	
+	<mail-template name='RejectAssignmentHandler'>
+		<subject><![CDATA[待办事宜提醒:您在 ${sysname} 中有流程被驳回]]></subject>
+		<text>
+			<![CDATA[您好,您在 ${sysname} ，提交的审批单： ${dformcode} 被驳回。请您先登录VPN，从VPN首页登录系统处理,谢谢!]]>
+		</text>
+	</mail-template>
+	
+</mail-templates>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.ActHiTaskinstDao"> 
+    <resultMap type="ActHiTaskinst" id="ActHiTaskinstMap">
+    <id  property="id" column="id_"/>
+    <result property="name" column="name_"/>
+    <result property="startTime" column="start_time_"/>
+    <result property="assignee" column="assignee_"/>
+    <result property="procInstId" column="proc_inst_id_"/>
+    <result property="procDefId" column="proc_def_id_"/>
+    </resultMap>
+
+     <!-- 已办流转 -->
+      <select id="listProcInstIdUnFinished" parameterType="Map"   resultType="String">
+	  
+           select t.proc_inst_id_ from act_hi_taskinst t 
+                    ,act_hi_procinst t1  
+                    ,act_re_deployment t2
+                    ,act_re_procdef  t3
+                     where 
+                    t.assignee_=#{assignee}
+                    and t.end_time_ is not null
+                    and t.task_def_key_ != 'usertask1'
+                    and t.proc_inst_id_=t1.proc_inst_id_ 
+                    and t1.end_time_ is null 
+                    and t.proc_def_id_ = t3.id_
+                    and t3.deployment_id_  =  t2.id_
+                    <if test="id == '' || id == null">  
+                    and t2.id_ ='1'
+                    </if>
+                    <if test="id != '' and id != null">  
+                    and t2.id_ =#{id}
+                    </if>    
+                    <if test="beginDate != null and beginDate != ''">
+                    AND TO_CHAR(t1.start_time_,'yyyy-mm-dd')  <![CDATA[>=]]> #{beginDate}
+                    </if>
+                    <if test="endDate != null and endDate != ''">
+                    AND TO_CHAR(t1.start_time_,'yyyy-mm-dd')<![CDATA[<=]]> #{endDate}
+                    </if>
+                    group by t.proc_inst_id_
+	  </select>
+	  <!-- 已办归档 -->
+	  <select id="listProcInstIdFinished" parameterType="Map"   resultType="String">
+	 
+            select t.proc_inst_id_ from act_hi_taskinst t 
+                    ,act_hi_procinst t1  
+                    ,act_re_deployment t2
+                    ,act_re_procdef  t3
+                     where 
+                    t.assignee_=#{assignee}
+                    and t.end_time_ is not null
+                    and t.task_def_key_ != 'usertask1'
+                    and t.proc_inst_id_=t1.proc_inst_id_ 
+                    and t1.end_time_ is not null 
+                    and t.proc_def_id_ = t3.id_
+                    and t3.deployment_id_  =  t2.id_
+                    <if test="id == '' || id == null">  
+                    and t2.id_ ='1'
+                    </if>
+                    <if test="id != '' and id != null">  
+                    and t2.id_ =#{id}
+                    </if>              
+                    <if test="beginDate != null and beginDate != ''">
+                    AND TO_CHAR(t1.start_time_,'yyyy-mm-dd')  <![CDATA[>=]]> #{beginDate}
+                    </if>
+                    <if test="endDate != null and endDate != ''">
+                    AND TO_CHAR(t1.start_time_,'yyyy-mm-dd')<![CDATA[<=]]> #{endDate}
+                    </if>
+                    group by t.proc_inst_id_
+	  </select>
+	  
+	  	  
+	   <!-- 查询已办 实例  申请人和提交时间 -->
+	 
+	   <select id="getTaskinst" parameterType="String"   resultMap="ActHiTaskinstMap">
+	     select t.assignee_, t.start_time_ ,t2.name_ ,t.proc_def_id_
+	     from act_hi_taskinst t ,
+	     act_re_procdef t1,
+         act_re_deployment t2   
+         where t.proc_inst_id_=#{procInstId}  
+         and t.task_def_key_='usertask1'  
+         and t.proc_def_id_=t1.id_ 
+         and t1.deployment_id_=t2.id_
+	  </select> 
+	  	  
+	   <!-- 已办流程名称 、现在待办人 -->
+	   <select id="listTaskinst" parameterType="Map"   resultMap="ActHiTaskinstMap">
+	   select t.id_,t.name_ ,t.assignee_,t.proc_inst_id_  
+	      from  
+	      act_hi_taskinst t 
+	      where 
+	      t.proc_inst_id_=#{procInstId} 
+	      and t.assignee_=#{assignee} 
+	      order by t.id_ desc
+	  </select> 	    	 
+	   
+	   
+	     <!-- 已办流程 现在状态 -->
+	   <select id="listTaskinstState" parameterType="String"   resultMap="ActHiTaskinstMap">
+	     select t.assignee_ ,t.id_ ,t.name_ 
+	     from 
+	     act_hi_taskinst t
+	      where
+	       t.proc_inst_id_=#{procInstId}
+	       and t.end_time_ is null 
+	       and t.delete_reason_ is null
+	  </select> 	
+ 	
+ 	
+ 	
+</mapper> 

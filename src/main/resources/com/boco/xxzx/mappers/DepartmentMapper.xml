@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.DepartmentDao">
+<select id="selectDept" parameterType="Department" resultType="Department">
+	select t.* from bo_org_department t where 1=1
+	<if test="depName!= null and depName != ''">
+	and t.depName=#{depName}
+	</if>
+	<if test="depId!= null and depId != ''">
+	and t.depId=#{depId}
+	</if>
+	<if test="flag!= null and flag != ''">
+	and t.flag=#{flag}
+	</if>
+	</select>
+	<select id="showDeptInfo" parameterType="int" resultType="Department">
+	select t.* from bo_org_department t where t.depId=#{depId}	
+	</select>	
+    <insert id="addDept" parameterType="Department" keyProperty="depId">
+	insert into bo_org_department values(dep_seq.nextval,#{parentId},#{depNum},#{depName},#{creater,jdbcType=VARCHAR},#{createTime,jdbcType=DATE},#{modifier,jdbcType=VARCHAR},#{modifyTime,jdbcType=DATE},#{flag})
+	</insert>
+	<update id="modifyDept" parameterType="Department">
+	 update bo_org_department t set t.depName=#{depName},t.depNum=#{depNum},t.modifier=#{modifier},t.modifyTime=#{modifyTime} where t.depId=#{depId}
+	</update>
+	<delete id="delDept" parameterType="int">
+	 delete from bo_org_department t where t.depId=#{depId}
+	</delete>
+</mapper> 

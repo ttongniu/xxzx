@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.DictionaryDao">
+
+	<resultMap type="Dictionary" id="dictionaryMap">
+	<id property="id" column="id"/>
+	<result property="code" column="code"/>
+	<result property="key" column="key"/>
+	<result property="value" column="value"/>
+	<result property="description" column="description"/>
+    <result property="createTime" column="create_Time"/>
+	<result property="updateTime" column="update_Time"/>
+	<association property="lastModifyUser" javaType="User">
+       <id property="id" column="last_modify_user_id"/>
+       <result property="employeeId" column="employeeId"/>
+       <result property="employeeName" column="employeeName"/>
+       <result property="password" column="password"/>
+       <result property="mobile" column="mobile"/>
+       <result property="email" column="email"/>
+     </association>
+	</resultMap>	
+   
+    <select id="listDictionaryCode"    resultType="String">
+       select t.code  from bo_data_dict t  group by t.code
+	</select>
+    
+   <select id="getDictionary"   parameterType="String"  resultMap="dictionaryMap">
+        select * from bo_data_dict t  where t.id=#{id}
+	</select>
+    <select id="listDictionary"  resultMap="dictionaryMap">
+        select * from bo_data_dict t ,bo_org_user t1 where t.last_modify_user_id=t1.id  order by t.code,t.key
+	</select>
+	
+	<select id="listDictionaryByCodeAndValue" parameterType="Map" resultMap="dictionaryMap">
+	select * from
+	 bo_data_dict t, 
+	 bo_org_user t1
+	 where	t.last_modify_user_id=t1.id 	
+	  <if test="code != 'all' and code != null">  
+	   and t.code=#{code}    
+	  </if>
+    <if test="value != '' and value != null">  
+       and  t.value like concat(concat('%', #{value}), '%')
+     </if>
+     order by t.code,t.key
+	</select>
+	
+	 <select id="listDictionaryByCode" parameterType="String" resultMap="dictionaryMap">
+        select * from bo_data_dict t ,bo_org_user t1 where t.last_modify_user_id=t1.id and t.code=#{code}
+	</select>
+	
+	<insert id="saveDictionary" parameterType="Dictionary" >
+	insert into bo_data_dict t
+	 (t.id,t.code,t.key,t.value,t.description,t.last_modify_user_id) 
+	 values
+	 (dictionary_seq.nextval,#{code},#{key},#{value},#{description},#{lastModifyUser.id})
+	</insert>
+	
+	<update id="updateDictionary" parameterType="Dictionary">
+	 update bo_data_dict t 
+	 <trim prefix="set" suffixOverrides=",">    
+       <if test="key!=null">  
+        t.key= #{key},  
+       </if>  
+  
+      <if test="value!=null">  
+        t.value = #{value},  
+      </if>
+        
+      <if test="description!=null">  
+        t.description = #{description},  
+      </if> 
+      
+       <if test="updateTime!=null">  
+        t.update_Time = #{updateTime},  
+      </if> 
+      
+       <if test="lastModifyUser!=null">  
+        t.last_modify_user_id = #{lastModifyUser.id},  
+      </if>  
+     </trim>  
+	   where   t.id=#{id}
+	</update>
+	
+	<delete id="removeDataById" parameterType="long">
+	 delete from bo_data_dict t where t.id=#{id}
+	</delete> 
+	
+</mapper>

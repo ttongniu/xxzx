@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.GroupDao">
+	<resultMap type="Dictionary" id="groupMap">
+		<id property="id" column="id" />
+		<result property="value" column="value" />
+		<result property="description" column="description" />
+	</resultMap>
+	<resultMap type="GroupRole" id="groupRoleMap">
+		<id property="grId" column="grId" />
+		<result property="groupId" column="groupId" />
+		<result property="roleId" column="roleId" />
+		<result property="dataId" column="dataId" />
+		<association property="role" javaType="com.boco.xxzx.model.Dictionary">
+			<id property="id" column="id" />
+			<result property="value" column="value" />
+		</association>
+		<association property="data" javaType="com.boco.xxzx.model.Dictionary">
+			<id property="value" column="value" />
+			<result property="key" column="key" />
+			<result property="description" column="description" />
+		</association>
+	</resultMap>
+	
+	<resultMap type="GroupMenu" id="groupMenuMap">
+		<id property="gmId" column="gmId" />
+		<result property="groupId" column="groupId" />
+		<result property="menuId" column="menuId" />
+		<association property="menu" javaType="com.boco.xxzx.model.Menu">
+    <id property="menuId" column="menuId"/>
+    <result property="menuName" column="menuName"/>
+    </association>
+	</resultMap>
+
+	<select id="selectGroup" parameterType="Dictionary" resultMap="groupMap">
+		select t.* from bo_data_dict t where t.code='group'
+		<if test="value!= null and value != ''">
+			and t.value like concat(concat('%', #{value}), '%')
+		</if>
+		<if test="id !=null and id != ''">
+			and t.id=#{id}
+		</if>
+	</select>
+	<select id="selectGroupRoleById" parameterType="int" resultMap="groupRoleMap">
+		select t.*,r.value,d.description from bo_org_groupRole t,bo_data_dict r,bo_data_dict d where t.roleId=r.id and t.dataId=d.id and t.groupId=#{groupId}
+	</select>
+	<select id="selectGroupMenuById" parameterType="int" resultMap="groupMenuMap">
+		select t.*,r.menuName from bo_org_groupMenu t,bo_org_menu r where t.menuId=r.menuId  and t.groupId=#{groupId}
+	</select>
+	
+	<insert id="addGroupRole" parameterType="GroupRole" keyProperty="grId">
+		insert into bo_org_groupRole
+		values(gr_seq.nextval,#{groupId},#{roleId},#{dataId})
+	</insert>
+	<insert id="addGroupMenu" parameterType="GroupMenu" keyProperty="gmId">
+		insert into bo_org_groupMenu
+		values(gm_seq.nextval,#{groupId},#{menuId})
+	</insert>
+	<delete id="deleteGroupRole" parameterType="GroupRole">
+		delete from bo_org_groupRole t where t.groupId=#{groupId} and t.dataId=#{dataId} and t.roleId=#{roleId}
+	</delete>
+	<delete id="deleteGroupMenu" parameterType="GroupMenu">
+		delete from bo_org_groupMenu t where t.groupId=#{groupId} and t.menuId=#{menuId}
+	</delete>
+	
+</mapper>

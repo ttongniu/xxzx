@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.xxzx.dao.LogDao">
+	<resultMap type="Log" id="logMap">
+	<id property="id" column="id"/>
+	<result property="operatorName" column="operatorname"/>
+	<result property="operatorTime" column="operatortime"/>
+	<result property="operatorIP" column="operatorip"/>
+	<association property="user" javaType="com.boco.xxzx.model.User">
+	<id property="id" column="uuid"/>
+	<result property="employeeName" column="employeename"/>
+	</association>
+	</resultMap>
+	
+	
+	<select id="selectLog"  resultMap="logMap" parameterType="java.util.Map">
+	select l.*,u.id uuid,u.employeename from bo_log l,bo_org_user u where l.operatoruserid=u.id
+	<if test="userName!= ''">
+	    and u.employeename like #{userName}
+	</if>
+	<if test="startDate!= null and endStart != null">
+	    and l.operatortime between #{startDate} and #{endStart}
+	</if>
+	order by l.operatortime
+	</select>
+	
+	<insert id="addLog" parameterType="Log" >
+	insert into bo_log values(log_seq.nextval,#{user.id},#{operatorName},sysdate,#{operatorIP})
+	</insert>
+	
+	<select id="selectLogCurrent" resultMap="logMap" >
+	select l.*,u.id uuid,u.employeename from bo_log l,bo_org_user u where l.operatoruserid=u.id and l.operatortime &gt;= trunc(sysdate) and l.operatortime &lt; trunc(sysdate) +1
+	</select>
+	
+</mapper>
